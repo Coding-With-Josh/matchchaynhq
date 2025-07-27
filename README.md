@@ -1,7 +1,6 @@
 # matchchayn
 
-A new Flutter project.
-
+A DateFi app on Solana.
 
 # Flutter Android App
 
