@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:matchchayn/ui/messages/message_tile.dart';
 import '../../app_router/route_destinations.dart';
 import '../app_theme/app_theme.dart';
-import '../core/app_bottom_nav.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({super.key});

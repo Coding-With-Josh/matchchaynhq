@@ -5,7 +5,8 @@ import 'package:matchchayn/ui/authentication/create_new_password.dart';
 import 'package:matchchayn/ui/authentication/forget_password_screen.dart';
 import 'package:matchchayn/ui/authentication/login_screen.dart';
 import 'package:matchchayn/ui/home/home_screen.dart';
-import 'package:matchchayn/ui/messages/chat_screen.dart';
+import 'package:matchchayn/ui/messages/call/call_screen.dart';
+import 'package:matchchayn/ui/messages/chat/chat_screen.dart';
 import 'package:matchchayn/ui/messages/messages_screen.dart';
 import 'package:matchchayn/ui/notifications/notifications.dart';
 import 'package:matchchayn/ui/onboarding_auth/sign_up_screen.dart';
@@ -23,6 +24,9 @@ import '../ui/splash_screen.dart';
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
 );
+final  GlobalKey<StatefulNavigationShellState> _shellNavigatorKey = GlobalKey<StatefulNavigationShellState>(
+  debugLabel: 'shell',
+);
 
 GoRouter createAppRouter({required bool isAuthenticated}) {
   final appRouter = GoRouter(
@@ -30,6 +34,11 @@ GoRouter createAppRouter({required bool isAuthenticated}) {
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
+      // GoRoute(
+      //   path: RouteDestinations.call,
+      //   parentNavigatorKey: _rootNavigatorKey,
+      //   builder: (context, state) => const CallScreen(),
+      // ),
       GoRoute(
         path: RouteDestinations.splash,
         builder: (context, state) => const SplashScreen(),
@@ -39,9 +48,11 @@ GoRouter createAppRouter({required bool isAuthenticated}) {
         builder: (context, state) => const GetStartedScreen(),
       ),
       StatefulShellRoute.indexedStack(
+        key: _shellNavigatorKey,
         builder: (context, state, navigationShell) {
           return ScaffoldWithNavBar(navigationShell: navigationShell);
         },
+
         branches: [
           StatefulShellBranch(
             routes: [
@@ -67,9 +78,15 @@ GoRouter createAppRouter({required bool isAuthenticated}) {
                 routes: [
                   GoRoute(
                     path: RouteDestinations.chatScreenRelative,
+                    parentNavigatorKey: _rootNavigatorKey,
                     builder: (context, state) => const ChatScreen(),
                   ),
-                ]
+                  GoRoute(
+                    path: RouteDestinations.callRelative,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    builder: (context, state) => const CallScreen(),
+                  ),
+                ],
               ),
             ],
           ),

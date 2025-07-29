@@ -38,4 +38,8 @@ abstract final class RouteDestinations {
   //messageChat
   static const chatScreenRelative = "message-chat";
   static const chatScreen = "$messages/$chatScreenRelative";
+
+  //calls
+  static const callRelative = "call";
+  static const calls = "$messages/$callRelative";
 }

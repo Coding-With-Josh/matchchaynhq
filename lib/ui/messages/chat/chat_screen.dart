@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matchchayn/ui/constants/app_colors.dart';
-import '../app_theme/app_theme.dart';
+import '../../../app_router/route_destinations.dart';
+import '../../app_theme/app_theme.dart';
+import '../../core/custom_pop_up_menu.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -14,6 +16,12 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   late TextEditingController messageController;
 
+  void _showMessage(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 2)),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -21,6 +29,51 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   List<Widget> messages = [];
+
+  List<PopupMenuEntry<String>> getChatScreenPopUpMenuItems(
+    BuildContext context,
+  ) {
+    return <PopupMenuEntry<String>>[
+      CustomPopUpMenuItem(
+        text: 'View User Profile',
+        onTap: () {
+          context.pop();
+        },
+      ),
+      const PopupMenuDivider(
+        height: 1.0,
+        color: AppColors.customPopUpDividerColor,
+      ),
+      CustomPopUpMenuItem(
+        text: 'Unmatch',
+        onTap: () {
+          context.pop();
+        },
+      ),
+      const PopupMenuDivider(
+        height: 1.0,
+        color: AppColors.customPopUpDividerColor,
+      ),
+      CustomPopUpMenuItem(
+        text: 'Block',
+        isDestructive: true,
+        onTap: () {
+          context.pop();
+        },
+      ),
+      const PopupMenuDivider(
+        height: 1.0,
+        color: AppColors.customPopUpDividerColor,
+      ),
+      CustomPopUpMenuItem(
+        text: 'Report User Profile',
+        isDestructive: true,
+        onTap: () {
+          context.pop();
+        },
+      ),
+    ];
+  }
 
   @override
   void dispose() {
@@ -61,11 +114,24 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
         actions: [
-          ChatMessageIcons(iconPath: "assets/icons/video.svg"),
+          ChatMessageIcons(
+            iconPath: "assets/icons/video.svg",
+            onTap: () {
+              context.push(RouteDestinations.calls);
+            },
+          ),
           SizedBox(width: 6),
-          ChatMessageIcons(iconPath: "assets/icons/call.svg"),
+          ChatMessageIcons(
+            iconPath: "assets/icons/call.svg",
+            onTap: () {
+              context.push(RouteDestinations.calls);
+            },
+          ),
           SizedBox(width: 6),
-          ChatMessageIcons(iconPath: "assets/icons/more_options.svg"),
+          CustomIosStyledPopUpMenu(
+            menuItems: getChatScreenPopUpMenuItems(context),
+            child: ChatMessageIcons(iconPath: "assets/icons/more_options.svg"),
+          ),
           SizedBox(width: 24),
         ],
       ),
@@ -317,22 +383,26 @@ class DayCard extends StatelessWidget {
 }
 
 class ChatMessageIcons extends StatelessWidget {
-  const ChatMessageIcons({super.key, required this.iconPath});
+  const ChatMessageIcons({super.key, required this.iconPath, this.onTap});
 
   final String iconPath;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 28,
-      height: 28,
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        shape: BoxShape.circle,
-        border: Border.all(color: AppColors.whiteColor, width: 1),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 28,
+        height: 28,
+        padding: EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          shape: BoxShape.circle,
+          border: Border.all(color: AppColors.whiteColor, width: 1),
+        ),
+        child: SvgPicture.asset(iconPath),
       ),
-      child: SvgPicture.asset(iconPath),
     );
   }
 }

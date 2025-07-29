@@ -23,4 +23,6 @@ class AppColors {
   static const messageSenderCardColor = Color(0xFFF8EDFF);
   static const messageReceiverTextColor = Color(0xFF212121);
   static const messageReceiverCardColor = Color(0xFFFFFFFF);
+  static const customPopUpDividerColor = Color(0xFFC0C0C0);
+  static const callControlBackgroundColor = Color(0xFFD4D4D4);
 }
