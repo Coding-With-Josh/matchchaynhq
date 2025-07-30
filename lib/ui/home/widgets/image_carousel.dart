@@ -18,6 +18,10 @@ class _ImageCarouselState extends State<ImageCarousel> {
     'https://github.com/bethel-m/matchayn_images/blob/main/profile1.jpg?raw=true',
     'https://github.com/bethel-m/matchayn_images/blob/main/profile2.jpg?raw=true',
     'https://github.com/bethel-m/matchayn_images/blob/main/profile3.jpg?raw=true',
+    'https://github.com/bethel-m/matchayn_images/blob/main/profile4.jpg?raw=true',
+    'https://github.com/bethel-m/matchayn_images/blob/main/profile5.jpg?raw=true',
+    'https://github.com/bethel-m/matchayn_images/blob/main/profile6.jpg?raw=true',
+    'https://github.com/bethel-m/matchayn_images/blob/main/profile7.jpg?raw=true',
   ];
 
   int _currentIndex = 0;

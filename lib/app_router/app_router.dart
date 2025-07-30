@@ -30,15 +30,14 @@ final  GlobalKey<StatefulNavigationShellState> _shellNavigatorKey = GlobalKey<St
 
 GoRouter createAppRouter({required bool isAuthenticated}) {
   final appRouter = GoRouter(
-    initialLocation: RouteDestinations.splash,
+    initialLocation: RouteDestinations.profile,
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
-      // GoRoute(
-      //   path: RouteDestinations.call,
-      //   parentNavigatorKey: _rootNavigatorKey,
-      //   builder: (context, state) => const CallScreen(),
-      // ),
+      GoRoute(
+        path: RouteDestinations.profile,
+        builder: (context, state) => const ProfileScreen(),
+      ),
       GoRoute(
         path: RouteDestinations.splash,
         builder: (context, state) => const SplashScreen(),
