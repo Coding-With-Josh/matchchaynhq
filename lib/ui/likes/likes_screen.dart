@@ -10,7 +10,6 @@ import 'package:matchchayn/ui/likes/logic/like_screen_state.dart';
 
 import '../../app_router/route_destinations.dart';
 import '../app_theme/app_theme.dart';
-import '../core/app_bottom_nav.dart';
 import '../core/gradient_text.dart';
 import 'logic/like_screen_cubit.dart';
 
@@ -192,7 +191,7 @@ class _LikesScreenViewState extends State<LikesScreenView>
                                   ),
                                   child: isSelected
                                       ? Text(
-                                          "0",
+                                          "12",
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelSmall
@@ -202,7 +201,7 @@ class _LikesScreenViewState extends State<LikesScreenView>
                                               ),
                                         )
                                       : GradientText(
-                                          text: "0",
+                                          text: "5",
                                           style: Theme.of(context)
                                               .textTheme
                                               .labelSmall

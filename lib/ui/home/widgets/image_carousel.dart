@@ -16,14 +16,15 @@ class ImageCarousel extends StatefulWidget {
 class _ImageCarouselState extends State<ImageCarousel> {
   final PageController _pageController = PageController();
   String name = "Tiana, 27";
-  String shortDescription = "";
-  String hobby1 = "";
-  String hobby2 = "";
-  String location = "";
+  String shortDescription = "Confident, open-minded and here for real vibes only.";
+  String hobby1 = "coding";
+  String hobby2 = "coding";
+  String location = "Abuja, 4.5 km";
 
 
   int _currentIndex = 0;
 
+  // use 7 profiles
   void _goToPage(int index) {
     if (index >= 0 && index < images.length) {
       _pageController.animateToPage(
