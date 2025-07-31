@@ -1,6 +1,5 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:matchchayn/ui/app_theme/app_theme.dart';
 
 import '../constants/app_colors.dart';
@@ -15,6 +14,7 @@ class GradientBorderTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final String fieldLabel;
   final bool isReadOnly;
+  final void Function(String)? onTextChanged;
 
   const GradientBorderTextField({
     super.key,
@@ -27,6 +27,7 @@ class GradientBorderTextField extends StatefulWidget {
     this.hideText = false,
     this.isReadOnly = false,
     this.prefixIcon,
+    this.onTextChanged,
   });
 
   @override
@@ -99,6 +100,7 @@ class _GradientBorderTextFieldState extends State<GradientBorderTextField> {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: TextField(
+              onChanged: widget.onTextChanged,
               readOnly: widget.isReadOnly,
               focusNode: _focusNode,
               controller: widget.controller,

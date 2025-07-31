@@ -3,6 +3,7 @@ import 'package:matchchayn/ui/constants/app_colors.dart';
 
 import '../app_theme/app_theme.dart';
 import '../core/intro_header_and_text.dart';
+import '../core/user_intetrests.dart';
 
 class SelectInterestScreen extends StatefulWidget {
   const SelectInterestScreen({super.key});
@@ -22,41 +23,7 @@ class _SelectInterestScreenState extends State<SelectInterestScreen> {
     super.dispose();
   }
 
-  List<Interest> interests = [
-    Interest(title: "Music"),
-    Interest(title: "Sports"),
-    Interest(title: "Movies"),
-    Interest(title: "Travel"),
-    Interest(title: "Food"),
-    Interest(title: "Art"),
-    Interest(title: "Music"),
-    Interest(title: "Sports"),
-    Interest(title: "Movies"),
-    Interest(title: "Travel"),
-    Interest(title: "Food"),
-    Interest(title: "Art"),
-    Interest(title: "Music"),
-    Interest(title: "Sports"),
-    Interest(title: "Movies"),
-    Interest(title: "Travel"),
-    Interest(title: "Food"),
-    Interest(title: "Art"),
-    Interest(title: "Music"),
-    Interest(title: "Sports"),
-    Interest(title: "Movies"),
-    Interest(title: "Travel"),
-    Interest(title: "Food"),
-    Interest(title: "Art"),
-    Interest(title: "Music"),
-    Interest(title: "Sports"),
-    Interest(title: "Movies"),
-    Interest(title: "Travel"),
-    Interest(title: "Food"),
-    Interest(title: "Art"),
-    Interest(title: "Music"),
-    Interest(title: "Sports"),
-    Interest(title: "Movies"),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +39,11 @@ class _SelectInterestScreenState extends State<SelectInterestScreen> {
             children: [
               SizedBox(height: 48),
               InterestListing(
-                interests: interests,
+                interests: userInterests,
                 onTap: (index) {
                   setState(() {
-                    interests[index] = interests[index].copyWith(
-                      isSelected: !interests[index].isSelected,
+                    userInterests[index] = userInterests[index].copyWith(
+                      isSelected: !userInterests[index].isSelected,
                     );
                   });
                 },

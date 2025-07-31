@@ -32,24 +32,51 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         actions: [
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-            decoration: BoxDecoration(
-              color: AppColors.buttonGreyGrey,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  "assets/icons/coins.svg",
-                  width: 24, // Adjust icon size as needed
-                  height: 24,
-                ),
-                SizedBox(width: 6),
-                Text("50", style: Theme.of(context).textTheme.labelMedium),
-              ],
+          GestureDetector(
+            onTap: () {
+              //show coming soon dialog
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('MatchChayn Tokens'),
+                    content: Text(
+                      'MatchChayn tokens is Coming very soon... stay Tuned',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        child: Text(
+                          'OK',
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+              decoration: BoxDecoration(
+                color: AppColors.buttonGreyGrey,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    "assets/icons/coins.svg",
+                    width: 24, // Adjust icon size as needed
+                    height: 24,
+                  ),
+                  SizedBox(width: 6),
+                  Text("50", style: Theme.of(context).textTheme.labelMedium),
+                ],
+              ),
             ),
           ),
+          SizedBox(width: 10),
           IconButton(
             onPressed: () {
               context.push(RouteDestinations.notifications);
@@ -60,7 +87,7 @@ class HomeScreen extends StatelessWidget {
               height: 24,
             ),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: 14),
         ],
       ),
       body: Container(

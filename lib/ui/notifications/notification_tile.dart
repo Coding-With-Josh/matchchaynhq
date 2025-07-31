@@ -7,10 +7,14 @@ class NotificationTile extends StatelessWidget {
     super.key,
     this.isLiked = false,
     this.isMatched = false,
+    this.name = "Tiana Brooks",
+    this.image = "assets/images/user1.png",
   });
 
   final bool isLiked;
   final bool isMatched;
+  final String name;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class NotificationTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage("assets/images/user1.png"),
+              backgroundImage: AssetImage(image),
               radius: 22,
             ),
             SizedBox(width: 12),
@@ -29,7 +33,7 @@ class NotificationTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Tiana Brooks",
+                  name,
                   style: Theme.of(
                     context,
                   ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),

@@ -10,10 +10,14 @@ class MessageTile extends StatelessWidget {
     this.isMyMessageLast = false,
     this.isUnreadMessage = false,
     this.isDeliveredMessage = false,
+    this.name = "Tiana Brooks",
+    this.image = "assets/images/user1.png",
     required this.message,
     this.onTap,
   });
 
+  final String name;
+  final String image;
   final bool isUserOnline;
   final bool isMyMessageLast;
 
@@ -38,10 +42,7 @@ class MessageTile extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/user1.png"),
-                    radius: 22,
-                  ),
+                  CircleAvatar(backgroundImage: AssetImage(image), radius: 22),
                   SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +50,7 @@ class MessageTile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "Tiana Brooks",
+                            name,
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(fontWeight: FontWeight.w500),
                           ),

@@ -21,6 +21,10 @@ class SetPasswordScreen extends StatefulWidget {
 class _SetPasswordScreenState extends State<SetPasswordScreen> {
   late TextEditingController hiddenTextController;
   late TextEditingController passwordTextController;
+  bool poorPasswordIndicator = false;
+  bool weakPasswordIndicator = false;
+  bool normalPasswordIndicator = false;
+  bool strongPasswordIndicator = false;
 
   bool hideText = false;
 
@@ -62,7 +66,8 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                             IntroHeaderAndSubtext(
                               useSmallPadding: true,
                               header: "Set Password",
-                              subtext: "Secure your account by setting a password you’ll remember.",
+                              subtext:
+                                  "Secure your account by setting a password you’ll remember.",
                             ),
                             SizedBox(height: 64),
                             Column(
@@ -75,9 +80,38 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                                   controller: hiddenTextController,
                                   hideText: hideText,
                                   hintText: "enter password",
-                                  // onTextChanged: (value) {
-                                  //
-                                  // },
+                                  onTextChanged: (value) {
+                                    setState(() {
+                                      //if its less than 8 its poor
+                                      if (value.length < 8) {
+                                        poorPasswordIndicator = true;
+                                      }
+                                      //if its 8 or more its weak
+                                      if (value.length >= 8) {
+                                        weakPasswordIndicator = true;
+                                      } else {
+                                        weakPasswordIndicator = false;
+                                      }
+                                      //if its 8 or more, and has a capital ler its normal
+                                      if (value.length >= 8 &&
+                                          (value.contains(RegExp(r'[A-Z]')) ||
+                                              value.contains(
+                                                RegExp(r'[0-9]'),
+                                              ))) {
+                                        normalPasswordIndicator = true;
+                                      } else {
+                                        normalPasswordIndicator = false;
+                                      }
+                                      //if its 8 or more, has a capital letter, and has a number its strong
+                                      if (value.length >= 8 &&
+                                          value.contains(RegExp(r'[A-Z]')) &&
+                                          value.contains(RegExp(r'[0-9]'))) {
+                                        strongPasswordIndicator = true;
+                                      } else {
+                                        strongPasswordIndicator = false;
+                                      }
+                                    });
+                                  },
                                   onSuffixIconPressed: () {
                                     setState(() {
                                       hideText = !hideText;
@@ -100,28 +134,28 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                                   children: [
                                     Expanded(
                                       child: PasswordStrengthIndicator(
-                                        isActive: true,
+                                        isActive: poorPasswordIndicator,
                                         text: "Poor",
                                       ),
                                     ),
                                     SizedBox(width: 16),
                                     Expanded(
                                       child: PasswordStrengthIndicator(
-                                        isActive: true,
+                                        isActive: weakPasswordIndicator,
                                         text: "weak",
                                       ),
                                     ),
                                     SizedBox(width: 16),
                                     Expanded(
                                       child: PasswordStrengthIndicator(
-                                        isActive: false,
+                                        isActive: normalPasswordIndicator,
                                         text: "Normal",
                                       ),
                                     ),
                                     SizedBox(width: 16),
                                     Expanded(
                                       child: PasswordStrengthIndicator(
-                                        isActive: false,
+                                        isActive: strongPasswordIndicator,
                                         text: "Strong",
                                       ),
                                     ),

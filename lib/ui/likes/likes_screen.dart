@@ -1,26 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:matchchayn/ui/constants/app_colors.dart';
 import 'package:matchchayn/ui/core/primary_button.dart';
+import 'package:matchchayn/ui/likes/logic/like_screen_state.dart';
 
+import '../../app_router/route_destinations.dart';
 import '../app_theme/app_theme.dart';
 import '../core/app_bottom_nav.dart';
 import '../core/gradient_text.dart';
+import 'logic/like_screen_cubit.dart';
 
-
-class LikesScreen extends StatefulWidget {
+class LikesScreen extends StatelessWidget {
   const LikesScreen({super.key});
 
   @override
-  State<LikesScreen> createState() => _LikesScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(create: (_) => LikesCubit(), child: LikesScreenView());
+  }
 }
 
-class _LikesScreenState extends State<LikesScreen>
+class LikesScreenView extends StatefulWidget {
+  const LikesScreenView({super.key});
+
+  @override
+  State<LikesScreenView> createState() => _LikesScreenViewState();
+}
+
+class _LikesScreenViewState extends State<LikesScreenView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
   bool showMyLikesListing = false;
   bool showWhoLikeMeListing = false;
+  bool isLoading = false;
+
   final tabs = ["Liked me", "My likes"];
   final icons = [
     "assets/icons/love.svg",
@@ -31,7 +46,18 @@ class _LikesScreenState extends State<LikesScreen>
   void initState() {
     _tabController = TabController(length: tabs.length, vsync: this);
     _scrollController = ScrollController();
+    context.read<LikesCubit>().isUserSubscribed();
     super.initState();
+  }
+
+  //it should have a red background color
+  _showErrorOccurredSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: AppColors.criticalActionColor,
+        content: Text('Something went wrong!'),
+      ),
+    );
   }
 
   @override
@@ -48,154 +74,204 @@ class _LikesScreenState extends State<LikesScreen>
     return Scaffold(
       body: Container(
         decoration: AppTheme.surfaceGradientBox(),
-        child: Padding(
-          padding: EdgeInsets.only(left: 24, right: 24, top: statusBarHeight),
-          child: Column(
-            children: [
-              SizedBox(height: 18),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                decoration: BoxDecoration(
-                  gradient: AppTheme.primaryLinearGradient(),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white, width: 1),
-                ),
-                child: Row(
-                  children: List.generate(tabs.length, (index) {
-                    final isSelected = _tabController.index == index;
-                    return Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _tabController.index = index;
-                          });
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 25,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? AppColors.whiteColor
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                icons[index],
-                                colorFilter: isSelected
-                                    ? null
-                                    : ColorFilter.mode(
-                                  AppColors.whiteColor,
-                                  BlendMode.srcIn,
-                                ),
-                                width: 14,
-                                height: 14,
-                              ),
-                              const SizedBox(width: 8),
-                              isSelected
-                                  ? GradientText(
-                                text: tabs[index],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                gradient:
-                                AppTheme.primaryLinearGradient(),
-                              )
-                                  : Text(
-                                tabs[index],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  gradient: isSelected
-                                      ? AppTheme.primaryLinearGradient()
-                                      : null,
-                                  borderRadius: BorderRadius.circular(3),
-                                  color: isSelected
+        child: BlocListener<LikesCubit, LikeScreenState>(
+          listener: (context, state) {
+            if (state is LikeScreenStateLoading) {
+              setState(() {
+                isLoading = true;
+              });
+            } else {
+              setState(() {
+                isLoading = false;
+              });
+            }
+            if (state is LikeScreenStateError) {
+              _showErrorOccurredSnackBar(context);
+            }
+            if (state is LikeScreenStateInitial) {
+              setState(() {
+                showMyLikesListing = false;
+                showWhoLikeMeListing = false;
+              });
+            }
+            if (state is LikeScreenStateError) {
+              _showErrorOccurredSnackBar(context);
+            }
+            if (state is LikeScreenStateSuccess) {
+              setState(() {
+                showMyLikesListing = state.isUserSubscribed;
+                showWhoLikeMeListing = state.isUserSubscribed;
+              });
+            }
+          },
+          child: Padding(
+            padding: EdgeInsets.only(left: 24, right: 24, top: statusBarHeight),
+            child: Column(
+              children: [
+                SizedBox(height: 18),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.primaryLinearGradient(),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.white, width: 1),
+                  ),
+                  child: Row(
+                    children: List.generate(tabs.length, (index) {
+                      final isSelected = _tabController.index == index;
+                      return Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _tabController.index = index;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 25,
+                            ),
+                            decoration: BoxDecoration(
+                              color: isSelected
+                                  ? AppColors.whiteColor
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(
+                                  icons[index],
+                                  colorFilter: isSelected
                                       ? null
-                                      : AppColors.whiteColor,
+                                      : ColorFilter.mode(
+                                          AppColors.whiteColor,
+                                          BlendMode.srcIn,
+                                        ),
+                                  width: 14,
+                                  height: 14,
                                 ),
-                                child: isSelected
-                                    ? Text(
-                                  "0",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 6,
+                                const SizedBox(width: 8),
+                                isSelected
+                                    ? GradientText(
+                                        text: tabs[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                        gradient:
+                                            AppTheme.primaryLinearGradient(),
+                                      )
+                                    : Text(
+                                        tabs[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                      ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    gradient: isSelected
+                                        ? AppTheme.primaryLinearGradient()
+                                        : null,
+                                    borderRadius: BorderRadius.circular(3),
+                                    color: isSelected
+                                        ? null
+                                        : AppColors.whiteColor,
                                   ),
-                                )
-                                    : GradientText(
-                                  text: "0",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelSmall
-                                      ?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 6,
-                                  ),
-                                  gradient:
-                                  AppTheme.primaryLinearGradient(),
+                                  child: isSelected
+                                      ? Text(
+                                          "0",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 6,
+                                              ),
+                                        )
+                                      : GradientText(
+                                          text: "0",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 6,
+                                              ),
+                                          gradient:
+                                              AppTheme.primaryLinearGradient(),
+                                        ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+                  ),
                 ),
-              ),
-              SizedBox(height: 24),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    SizedBox(
-                      child: showWhoLikeMeListing
-                          ? ProfileListing(scrollController: _scrollController)
-                          : EmptyLikesView(
-                        isMyLikes: false,
-                        onPressed: () {
-                          setState(() {
-                            showWhoLikeMeListing = true;
-                          });
-                        },
+                SizedBox(height: 24),
+                Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      SizedBox(
+                        child: showWhoLikeMeListing
+                            ? ProfileListing(
+                                scrollController: _scrollController,
+                              )
+                            : EmptyLikesView(
+                                isMyLikes: false,
+                                onPressed: () async {
+                                  final result = await context.push(
+                                    RouteDestinations.premium,
+                                  );
+                                  //  showWhoLikeMeListing = true;
+                                  if (context.mounted) {
+                                    context
+                                        .read<LikesCubit>()
+                                        .isUserSubscribed();
+                                  }
+                                },
+                              ),
                       ),
-                    ),
-                    SizedBox(
-                      child: showMyLikesListing
-                          ? ProfileListing(scrollController: _scrollController)
-                          : EmptyLikesView(
-                        isMyLikes: true,
-                        onPressed: () {
-                          setState(() {
-                            showMyLikesListing = true;
-                          });
-                        },
+                      SizedBox(
+                        child: showMyLikesListing
+                            ? ProfileListing(
+                                scrollController: _scrollController,
+                              )
+                            : EmptyLikesView(
+                                isMyLikes: true,
+                                onPressed: () async {
+                                  final result = await context.push(
+                                    RouteDestinations.premium,
+                                  );
+                                  //  showWhoLikeMeListing = true;
+                                  if (context.mounted) {
+                                    context
+                                        .read<LikesCubit>()
+                                        .isUserSubscribed();
+                                  }
+                                },
+                              ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              SizedBox(height: 24),
-            ],
+                SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),

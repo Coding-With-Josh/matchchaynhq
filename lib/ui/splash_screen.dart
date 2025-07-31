@@ -8,7 +8,9 @@ import 'package:matchchayn/ui/core/logo_and_text.dart';
 import 'app_theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({super.key, required this.isUnauthenticated});
+
+  final bool isUnauthenticated;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -21,11 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3), () {
-      // Use context.go() to navigate to the home screen, replacing the splash screen.
-      context.go(RouteDestinations.getStarted);
-   //   context.pushReplacement(RouteDestinations.getStarted);
+      if (widget.isUnauthenticated) {
+        context.go(RouteDestinations.home);
+      } else {
+        context.go(RouteDestinations.getStarted);
+      }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -10,6 +10,7 @@ import 'package:matchchayn/ui/messages/chat/chat_screen.dart';
 import 'package:matchchayn/ui/messages/messages_screen.dart';
 import 'package:matchchayn/ui/notifications/notifications.dart';
 import 'package:matchchayn/ui/onboarding_auth/sign_up_screen.dart';
+import 'package:matchchayn/ui/premium/premium_screen.dart';
 import 'package:matchchayn/ui/profile/profile_screen.dart';
 import 'package:matchchayn/ui/profile_onboarding/user_profile_onboarding_screen.dart';
 
@@ -24,23 +25,19 @@ import '../ui/splash_screen.dart';
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: 'root',
 );
-final  GlobalKey<StatefulNavigationShellState> _shellNavigatorKey = GlobalKey<StatefulNavigationShellState>(
-  debugLabel: 'shell',
-);
+final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
+    GlobalKey<StatefulNavigationShellState>(debugLabel: 'shell');
 
 GoRouter createAppRouter({required bool isAuthenticated}) {
   final appRouter = GoRouter(
-    initialLocation: RouteDestinations.profile,
+    initialLocation: RouteDestinations.splash,
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
       GoRoute(
-        path: RouteDestinations.profile,
-        builder: (context, state) => const ProfileScreen(),
-      ),
-      GoRoute(
         path: RouteDestinations.splash,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) =>
+            SplashScreen(isUnauthenticated: isAuthenticated),
       ),
       GoRoute(
         path: RouteDestinations.getStarted,
@@ -66,6 +63,12 @@ GoRouter createAppRouter({required bool isAuthenticated}) {
               GoRoute(
                 path: RouteDestinations.likes,
                 builder: (context, state) => const LikesScreen(),
+                routes: [
+                  GoRoute(
+                    path: RouteDestinations.premiumRelative,
+                    builder: (context, state) => const PremiumScreen(),
+                  ),
+                ],
               ),
             ],
           ),
