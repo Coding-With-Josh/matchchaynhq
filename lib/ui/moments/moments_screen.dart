@@ -81,6 +81,20 @@ class _MomentsScreenState extends State<MomentsScreen>
     }
   }
 
+  void _goToPreviousStory() {
+    if (_currentIndex > 0) {
+      setState(() {
+        _currentIndex--;
+        _pageController.previousPage(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+        );
+        _restartAnimation();
+      });
+    }
+  }
+
+
   void _restartAnimation() {
     _animationController.stop();
     _animationController.reset();
@@ -100,36 +114,49 @@ class _MomentsScreenState extends State<MomentsScreen>
     return Scaffold(
       appBar: widget.isCreateMoment
           ? AppBar(
-              title: Text(
-                "Create Moments",
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+        title: Text(
+          "Create Moments",
+          style: Theme.of(
+            context,
+          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        actions: [
+          GestureDetector(
+            child: SvgPicture.asset(
+              "assets/icons/close.svg",
+              width: 24,
+              height: 24,
+              colorFilter: ColorFilter.mode(
+                AppColors.whiteColor,
+                BlendMode.srcIn,
               ),
-              actions: [
-                GestureDetector(
-                  child: SvgPicture.asset(
-                    "assets/icons/close.svg",
-                    width: 24,
-                    height: 24,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.whiteColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  onTap: () {
-                    context.pop();
-                  },
-                ),
-                SizedBox(width: 24),
-              ],
-            )
+            ),
+            onTap: () {
+              context.pop();
+            },
+          ),
+          SizedBox(width: 24),
+        ],
+      )
           : null,
       body: GestureDetector(
-        onTap: () {
-          setState(() {
-            showMenu = false;
-          });
+        onTapDown: (details) {
+          if(showMenu){
+            setState(() {
+              showMenu = false;
+            });
+          }else{
+            final double screenWidth = MediaQuery.of(context).size.width;
+            final double tapX = details.globalPosition.dx;
+            if (tapX < screenWidth / 2) {
+              // Left half of the screen
+              _goToPreviousStory();
+            } else {
+              // Right half of the screen
+              _goToNextStory();
+            }
+          }
+
         },
         child: Container(
           decoration: AppTheme.surfaceGradientBox(),
@@ -198,31 +225,31 @@ class _MomentsScreenState extends State<MomentsScreen>
                                 padding: EdgeInsets.symmetric(horizontal: 2),
                                 child: index == _currentIndex
                                     ? AnimatedBuilder(
-                                        animation: _animationController,
-                                        builder: (context, child) {
-                                          return LinearProgressIndicator(
-                                            borderRadius: BorderRadius.circular(
-                                              1,
-                                            ),
-                                            minHeight: 2,
-                                            value: _animationController.value,
-                                            backgroundColor: Colors.white24,
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                  Colors.white,
-                                                ),
-                                          );
-                                        },
-                                      )
-                                    : LinearProgressIndicator(
-                                        minHeight: 2,
-                                        value: index < _currentIndex ? 1 : 0,
-                                        backgroundColor: Colors.white24,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                              Colors.white,
-                                            ),
+                                  animation: _animationController,
+                                  builder: (context, child) {
+                                    return LinearProgressIndicator(
+                                      borderRadius: BorderRadius.circular(
+                                        1,
                                       ),
+                                      minHeight: 2,
+                                      value: _animationController.value,
+                                      backgroundColor: Colors.white24,
+                                      valueColor:
+                                      AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    );
+                                  },
+                                )
+                                    : LinearProgressIndicator(
+                                  minHeight: 2,
+                                  value: index < _currentIndex ? 1 : 0,
+                                  backgroundColor: Colors.white24,
+                                  valueColor:
+                                  AlwaysStoppedAnimation<Color>(
+                                    Colors.white,
+                                  ),
+                                ),
                               ),
                             );
                           }),
@@ -230,7 +257,7 @@ class _MomentsScreenState extends State<MomentsScreen>
                       SizedBox(height: 18),
                       Visibility(
                         visible:
-                            (!widget.isCreateMoment) ||
+                        (!widget.isCreateMoment) ||
                             (widget.isCreateMoment && momentImage != null),
 
                         child: Row(
@@ -360,7 +387,7 @@ class _MomentsScreenState extends State<MomentsScreen>
                     right: 24,
                     child: TextField(
                       controller: _textEditingController,
-                     // style: Theme.of(context).textTheme.labelSmall,
+                      // style: Theme.of(context).textTheme.labelSmall,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 12.0,
@@ -373,9 +400,9 @@ class _MomentsScreenState extends State<MomentsScreen>
                         hintText: "Type your message here...",
                         hintStyle: Theme.of(context).textTheme.labelSmall
                             ?.copyWith(
-                              color: AppColors.whiteColor,
-                              fontWeight: FontWeight.w400,
-                            ),
+                          color: AppColors.whiteColor,
+                          fontWeight: FontWeight.w400,
+                        ),
                         filled: true,
                         fillColor: AppColors.whiteColor.withValues(alpha: 0.14),
                         suffixIcon: GestureDetector(
@@ -458,17 +485,6 @@ class _MyCascadingMenuState extends State<MyCascadingMenu> {
             }
           },
         );
-        // return IconButton(
-        //   focusNode: _buttonFocusNode,
-        //   onPressed: () {
-        //     if (controller.isOpen) {
-        //       controller.close();
-        //     } else {
-        //       controller.open();
-        //     }
-        //   },
-        //   icon: const Icon(Icons.more_vert),
-        // );
       },
     );
   }

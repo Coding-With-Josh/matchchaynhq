@@ -361,15 +361,9 @@ class ProfileCardInfoSmall extends StatelessWidget {
 }
 
 class ProfileListing extends StatelessWidget {
-  ProfileListing({super.key, required this.scrollController});
+  const ProfileListing({super.key, required this.scrollController});
 
   final ScrollController scrollController;
-
-  final profileImages = [
-    "assets/images/user1.png",
-    "assets/images/user2.jpg",
-    "assets/images/user3.jpg",
-  ];
 
   @override
   Widget build(BuildContext context) {
