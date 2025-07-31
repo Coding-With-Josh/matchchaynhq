@@ -153,7 +153,7 @@ class _WhoAreYouLookingToMeetScreenState
           ),
           SizedBox(height: 16),
           SliderValueLabels(
-            title: "Height Range",
+            title: "Height Range (cm)",
             value: "$lowerHeightRangeBound - $upperHeightRangeBound",
           ),
           //height range slider
