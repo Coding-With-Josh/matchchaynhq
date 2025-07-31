@@ -132,6 +132,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 424, child: ImageCarousel()),
                     ],
                   ),
+                  SizedBox(height: 24),
                 ],
               ),
             ),
