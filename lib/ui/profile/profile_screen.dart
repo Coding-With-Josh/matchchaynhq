@@ -8,7 +8,7 @@ import 'package:matchchayn/ui/profile/widgets/profile_gallery_section.dart';
 import 'package:matchchayn/ui/profile/widgets/profile_interest_section.dart';
 import 'package:matchchayn/ui/profile_onboarding/select_interest_screen.dart';
 import '../app_theme/app_theme.dart';
-import '../core/user_intetrests.dart';
+import '../../data/dummy_data/user_intetrests.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

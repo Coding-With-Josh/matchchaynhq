@@ -36,7 +36,7 @@ class NotificationTile extends StatelessWidget {
                   name,
                   style: Theme.of(
                     context,
-                  ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 8),
                 Row(
@@ -49,27 +49,27 @@ class NotificationTile extends StatelessWidget {
                             children: [
                               Text(
                                 "Likes you too, ",
-                                style: Theme.of(context).textTheme.labelSmall
+                                style: Theme.of(context).textTheme.bodySmall
                                     ?.copyWith(fontWeight: FontWeight.w400),
                               ),
                               Text(
                                 "You’ve got a Match",
-                                style: Theme.of(context).textTheme.labelSmall
+                                style: Theme.of(context).textTheme.bodySmall
                                     ?.copyWith(fontWeight: FontWeight.w400),
                               ),
                             ],
                           )
                         : Text(
                             "Liked your moment",
-                            style: Theme.of(context).textTheme.labelSmall
+                            style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(fontWeight: FontWeight.w400),
                           ),
-                    SizedBox(width: 20),
+                    SizedBox(width: 12),
                     Text(
                       "2:28 PM",
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         fontWeight: FontWeight.w400,
-                        fontSize: 8,
+                       // fontSize: 8,
                       ),
                     ),
                   ],
@@ -92,7 +92,7 @@ class NotificationTile extends StatelessWidget {
                 hugContents: true,
                 textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
                   fontWeight: FontWeight.w700,
-                  fontSize: 8,
+              //    fontSize: 8,
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 text: "View Profile",

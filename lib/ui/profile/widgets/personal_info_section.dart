@@ -16,13 +16,13 @@ class PersonalInfoTile extends StatelessWidget {
           title,
           style: Theme.of(
             context,
-          ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
         ),
         Text(
           value,
           style: Theme.of(
             context,
-          ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
         ),
       ],
     );

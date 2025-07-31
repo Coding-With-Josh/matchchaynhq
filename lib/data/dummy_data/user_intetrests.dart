@@ -1,4 +1,5 @@
-import '../profile_onboarding/select_interest_screen.dart';
+
+import '../../ui/profile_onboarding/select_interest_screen.dart';
 
 List<Interest> userInterests = [
   Interest(title: "Music"),

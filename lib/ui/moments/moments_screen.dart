@@ -360,7 +360,7 @@ class _MomentsScreenState extends State<MomentsScreen>
                     right: 24,
                     child: TextField(
                       controller: _textEditingController,
-                      style: Theme.of(context).textTheme.labelSmall,
+                     // style: Theme.of(context).textTheme.labelSmall,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 12.0,

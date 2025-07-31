@@ -51,7 +51,7 @@ class MessageTile extends StatelessWidget {
                         children: [
                           Text(
                             name,
-                            style: Theme.of(context).textTheme.bodySmall
+                            style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(fontWeight: FontWeight.w500),
                           ),
                           SizedBox(width: 8),
@@ -71,7 +71,7 @@ class MessageTile extends StatelessWidget {
                       Text(
                         isMyMessageLast ? "You: $message" : message,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -90,8 +90,8 @@ class MessageTile extends StatelessWidget {
                   SizedBox(height: 6),
                   if (isUnreadMessage)
                     Container(
-                      width: 12,
-                      height: 12,
+                      width: 16,
+                      height: 16,
                       decoration: BoxDecoration(
                         color: AppColors.primaryColor,
                         shape: BoxShape.circle,
@@ -102,7 +102,7 @@ class MessageTile extends StatelessWidget {
                           style: Theme.of(context).textTheme.labelSmall
                               ?.copyWith(
                                 fontWeight: FontWeight.w400,
-                                fontSize: 8,
+                              //  fontSize: 8,
                               ),
                         ),
                       ),
@@ -110,8 +110,8 @@ class MessageTile extends StatelessWidget {
                   if (isDeliveredMessage)
                     SvgPicture.asset(
                       "assets/icons/delivered.svg",
-                      width: 12,
-                      height: 12,
+                      width: 16,
+                      height: 16,
                     ),
                 ],
               ),

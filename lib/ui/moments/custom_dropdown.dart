@@ -95,9 +95,9 @@ class CustomDropdownButton extends StatelessWidget {
           SizedBox(height: 4),
           Text(
             text,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontWeight: FontWeight.w500,
-              fontSize: 6,
+            //  fontSize: 6,
               color: textColor,
             ),
           ),

@@ -26,7 +26,7 @@ class BioSection extends StatelessWidget {
             bioText,
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w500),
+            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
           ),
         ),
       ],

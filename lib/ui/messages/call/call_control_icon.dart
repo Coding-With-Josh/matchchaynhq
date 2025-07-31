@@ -20,9 +20,9 @@ class CallControlIcon extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 38,
-        height: 38,
-        padding: EdgeInsets.all(10),
+        width: 48,
+        height: 48,
+        padding: EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: isDestructive
               ? AppColors.criticalActionColor

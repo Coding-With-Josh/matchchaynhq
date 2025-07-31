@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/dummy_data/home_dummy.dart';
 import '../../constants/app_colors.dart';
 import '../../core/round_icon.dart';
 
@@ -14,20 +15,17 @@ class ImageCarousel extends StatefulWidget {
 
 class _ImageCarouselState extends State<ImageCarousel> {
   final PageController _pageController = PageController();
-  final List<String> _images = [
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile1.jpg?raw=true',
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile2.jpg?raw=true',
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile3.jpg?raw=true',
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile4.jpg?raw=true',
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile5.jpg?raw=true',
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile6.jpg?raw=true',
-    'https://github.com/bethel-m/matchayn_images/blob/main/profile7.jpg?raw=true',
-  ];
+  String name = "Tiana, 27";
+  String shortDescription = "";
+  String hobby1 = "";
+  String hobby2 = "";
+  String location = "";
+
 
   int _currentIndex = 0;
 
   void _goToPage(int index) {
-    if (index >= 0 && index < _images.length) {
+    if (index >= 0 && index < images.length) {
       _pageController.animateToPage(
         index,
         duration: const Duration(milliseconds: 500),
@@ -50,14 +48,21 @@ class _ImageCarouselState extends State<ImageCarousel> {
     return Stack(
       children: [
         PageView.builder(
-          itemCount: _images.length,
+          itemCount: images.length,
           controller: _pageController,
-          physics: const NeverScrollableScrollPhysics(), // disables swipe
+         // physics: const NeverScrollableScrollPhysics(), // disables swipe
           itemBuilder: (context, index) {
+            if (index == _currentIndex) {
+              name = names[index];
+              shortDescription = shortDescriptions[index];
+              hobby1 = hobies[index];
+              hobby2 = hobies[index + 1];
+              location = locations[index];
+            }
             return ClipRRect(
               borderRadius: BorderRadius.circular(16.0),
               child: CachedNetworkImage(
-                imageUrl: _images[index],
+                imageUrl: images[index],
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
                     Container(
                       width: double.infinity,
@@ -84,10 +89,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
           top: 24,
           right: 24,
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10,
-              vertical: 5,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
               //create a white border white in color with 20% opacity
               border: Border.all(
@@ -95,17 +97,17 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 width: 0.28,
               ),
               borderRadius: BorderRadius.circular(56.0),
-              color: AppColors.blackColor.withValues(alpha: 0.5)
+              color: AppColors.blackColor.withValues(alpha: 0.5),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset("assets/icons/location.svg"),
+                SizedBox(width: 4),
                 Text(
-                  "Abuja, 4.5 km",
+                  location,
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 6,
                   ),
                 ),
               ],
@@ -177,38 +179,40 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Tiana, 27",
-                                style: Theme.of(context).textTheme.labelSmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 8,
-                                      color: AppColors.alertBlackColor,
-                                    ),
-                              ),
-                              SizedBox(width: 4),
-                              SvgPicture.asset(
-                                "assets/icons/check-badge.svg",
-                                width: 16,
-                                height: 17,
-                              ),
-                            ],
-                          ),
-                          Text(
-                            "Confident, open-minded and here for real vibes only.",
-                            style: Theme.of(context).textTheme.labelSmall
-                                ?.copyWith(
-                                  fontSize: 6,
-                                  color: AppColors.alertBlackColor,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  name,
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        // fontSize: 8,
+                                        color: AppColors.alertBlackColor,
+                                      ),
                                 ),
-                          ),
-                        ],
+                                SizedBox(width: 4),
+                                SvgPicture.asset(
+                                  "assets/icons/check-badge.svg",
+                                  width: 16,
+                                  height: 17,
+                                ),
+                              ],
+                            ),
+                            Text(
+                              shortDescription,
+                              style: Theme.of(context).textTheme.labelSmall
+                                  ?.copyWith(
+                                    // fontSize: 6,
+                                    color: AppColors.alertBlackColor,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
 
                       Expanded(
@@ -228,10 +232,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
-                                "Cooking",
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.labelSmall?.copyWith(fontSize: 6),
+                                hobby1,
+                                style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ),
                             SizedBox(width: 4),
@@ -245,10 +247,8 @@ class _ImageCarouselState extends State<ImageCarousel> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Text(
-                                "Painting",
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.labelSmall?.copyWith(fontSize: 6),
+                                hobby2,
+                                style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ),
                           ],

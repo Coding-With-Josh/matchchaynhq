@@ -3,7 +3,7 @@ import 'package:matchchayn/ui/constants/app_colors.dart';
 
 import '../app_theme/app_theme.dart';
 import '../core/intro_header_and_text.dart';
-import '../core/user_intetrests.dart';
+import '../../data/dummy_data/user_intetrests.dart';
 
 class SelectInterestScreen extends StatefulWidget {
   const SelectInterestScreen({super.key});

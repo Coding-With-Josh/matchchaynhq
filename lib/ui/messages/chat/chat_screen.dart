@@ -104,7 +104,7 @@ class _ChatScreenState extends State<ChatScreen> {
             SizedBox(width: 8),
             UserOnlineImage(),
             SizedBox(width: 8),
-            Text("Tiana Brooks", style: Theme.of(context).textTheme.labelSmall),
+            Text("Tiana Brooks", style: Theme.of(context).textTheme.bodyMedium),
             SizedBox(width: 8),
             SvgPicture.asset(
               "assets/icons/check-badge.svg",
@@ -120,14 +120,14 @@ class _ChatScreenState extends State<ChatScreen> {
               context.push(RouteDestinations.calls);
             },
           ),
-          SizedBox(width: 6),
+          SizedBox(width: 12),
           ChatMessageIcons(
             iconPath: "assets/icons/call.svg",
             onTap: () {
               context.push(RouteDestinations.calls);
             },
           ),
-          SizedBox(width: 6),
+          SizedBox(width: 12),
           CustomIosStyledPopUpMenu(
             menuItems: getChatScreenPopUpMenuItems(context),
             child: ChatMessageIcons(iconPath: "assets/icons/more_options.svg"),
@@ -234,7 +234,7 @@ class ChatInputField extends StatelessWidget {
           Divider(color: AppColors.whiteColor, thickness: 1.5, height: 0),
           Expanded(
             child: TextField(
-              style: Theme.of(context).textTheme.labelSmall,
+             // style: Theme.of(context).textTheme.labelSmall,
               controller: messageController,
               decoration: InputDecoration(
                 isDense: true,
@@ -316,7 +316,7 @@ class MessageCard extends StatelessWidget {
                 children: [
                   Text(
                     message,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: isSender
                           ? AppColors.messageSenderTextColor
                           : AppColors.messageReceiverTextColor,
@@ -422,8 +422,8 @@ class UserOnlineImage extends StatelessWidget {
           bottom: 2,
           right: 2,
           child: Container(
-            width: 8,
-            height: 8,
+            width: 12,
+            height: 12,
             decoration: BoxDecoration(
               color: AppColors.userOnlineColor,
               shape: BoxShape.circle,

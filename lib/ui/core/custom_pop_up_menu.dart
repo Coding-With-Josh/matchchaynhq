@@ -80,7 +80,7 @@ class _IosStylePopupMenuItemState extends State<CustomPopUpMenuItem> {
   @override
   Widget build(BuildContext context) {
     // Get the default text style from the current theme
-    final TextStyle? textStyle = Theme.of(context).textTheme.labelSmall
+    final TextStyle? textStyle = Theme.of(context).textTheme.bodySmall
         ?.copyWith(
           //fontSize: 20.0, // iOS action sheet font size
           color: widget.isDestructive
