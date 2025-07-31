@@ -125,7 +125,11 @@ class _SnackBarWithProgressState extends State<SnackBarWithProgress> {
   }
 }
 
-void showCustomSnackBar(BuildContext context) {
+void showCustomSnackBar({
+  required BuildContext context,
+  required String message,
+  required String subMessage,
+}) {
   final messenger = ScaffoldMessenger.of(context);
   const duration = Duration(seconds: 5);
 
@@ -137,8 +141,8 @@ void showCustomSnackBar(BuildContext context) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
     padding: EdgeInsets.zero,
     content: SnackBarWithProgress(
-      message: 'Email Successfully Verified',
-      subMessage: "You're all set to continue",
+      message: message,
+      subMessage: subMessage,
       duration: duration,
       onClose: () {
         messenger.hideCurrentSnackBar();

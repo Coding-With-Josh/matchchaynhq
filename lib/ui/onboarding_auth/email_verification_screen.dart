@@ -138,7 +138,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                   textPrompt: "Didn’t receive an email? ",
                                   actionText: "Resend code",
                                   onTap: () {
-                                    showCustomSnackBar(context);
                                   },
                                   isSmallTexts: true,
                                 ),
@@ -146,7 +145,20 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                 PrimaryButton(
                                   text: widget.buttonText,
                                   onPressed: () {
-                                    context.push(widget.nextPage);
+                                    showCustomSnackBar(
+                                      context: context,
+                                      message: 'Email Successfully Verified',
+                                      subMessage: "You're all set to continue",
+                                    );
+                                    Future.delayed(
+                                      const Duration(seconds: 2),
+                                      () {
+                                        if (context.mounted) {
+                                          context.go(widget.nextPage);
+                                        }
+                                      },
+                                    );
+                                  //  context.push(widget.nextPage);
                                   },
                                 ),
                               ],

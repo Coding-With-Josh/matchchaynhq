@@ -10,6 +10,7 @@ import '../../app_router/route_destinations.dart';
 import '../app_theme/app_theme.dart';
 import '../core/agree_to_terms_widget.dart';
 import '../core/intro_header_and_text.dart';
+import '../utils/show_snack_bar.dart';
 
 class SetPasswordScreen extends StatefulWidget {
   const SetPasswordScreen({super.key});
@@ -165,8 +166,22 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                                 PrimaryButton(
                                   text: "Get Started",
                                   onPressed: () {
-                                    context.go(
-                                      RouteDestinations.userProfileOnboarding,
+                                    showCustomSnackBar(
+                                      context: context,
+                                      message: 'Password Set Successfully',
+                                      subMessage: "Your account is now secure",
+                                    );
+                                    //wait 2sec
+                                    Future.delayed(
+                                      const Duration(seconds: 2),
+                                      () {
+                                        if (context.mounted) {
+                                          context.go(
+                                            RouteDestinations
+                                                .userProfileOnboarding,
+                                          );
+                                        }
+                                      },
                                     );
                                   },
                                 ),
