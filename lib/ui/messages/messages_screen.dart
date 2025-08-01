@@ -36,66 +36,99 @@ class MessagesScreen extends StatelessWidget {
                 isMyMessageLast: true,
                 name: "Tope James",
                 image: "assets/images/user3.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Thank you very much. I’m glad ...",
                 isUnreadMessage: true,
                 name: "Chris Tomi",
                 image: "assets/images/user2.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "That sounds nice...",
                 isDeliveredMessage: true,
                 name: "Lana Titi",
                 image: "assets/images/user1.png",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Thank you very much. I’m glad ...",
                 isUserOnline: true,
                 name: "Milly Audu",
                 image: "assets/images/avatar2.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Sure! let me tell you about w…",
                 isMyMessageLast: true,
                 name: "Cece Obi",
                 image: "assets/images/avatar4.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Thank you very much. I’m glad ...",
                 isUnreadMessage: true,
                 name: "Kante Clinton",
                 image: "assets/images/avatar1.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "That sounds nice...",
                 isDeliveredMessage: true,
                 name: "Fumi Lawal",
                 image: "assets/images/avatar3.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Thank you very much. I’m glad ...",
                 isUserOnline: true,
                 name: "Kachi Mama",
                 image: "assets/images/user3.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Sure! let me tell you about w…",
                 isMyMessageLast: true,
                 name: "Chidi Okonkwo",
                 image: "assets/images/user2.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "Thank you very much. I’m glad ...",
                 isUnreadMessage: true,
                 name: "Gina Tony",
                 image: "assets/images/user1.png",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
               MessageTile(
                 message: "That sounds nice...",
                 isDeliveredMessage: true,
                 name: "Halima John",
                 image: "assets/images/avatar3.jpg",
+                onTap: () {
+                  context.push(RouteDestinations.chatScreen);
+                },
               ),
             ],
           ),
