@@ -143,6 +143,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+
 class EventCarousel extends StatelessWidget {
   const EventCarousel({super.key});
 

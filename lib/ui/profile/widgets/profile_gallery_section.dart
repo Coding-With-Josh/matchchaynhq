@@ -45,8 +45,12 @@ class ProfileGalleryImage extends StatelessWidget {
                     ),
                   ),
                 ),
-            errorWidget: (context, url, error) =>
-                Image.asset("assets/images/user1.png"),
+            errorWidget: (context, url, error) => Image.asset(
+              "assets/images/user1.png",
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+            ),
             fit: BoxFit.cover,
           ),
         ),
@@ -154,8 +158,10 @@ class FullScreenImageScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                      errorWidget: (context, url, error) =>
-                          Image.asset("assets/images/user1.png"),
+                      errorWidget: (context, url, error) => Image.asset(
+                        "assets/images/user1.png",
+                        fit: BoxFit.cover,
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),

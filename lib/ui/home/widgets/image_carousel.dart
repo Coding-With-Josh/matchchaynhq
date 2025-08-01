@@ -16,11 +16,11 @@ class ImageCarousel extends StatefulWidget {
 class _ImageCarouselState extends State<ImageCarousel> {
   final PageController _pageController = PageController();
   String name = "Tiana, 27";
-  String shortDescription = "Confident, open-minded and here for real vibes only.";
+  String shortDescription =
+      "Confident, open-minded and here for real vibes only.";
   String hobby1 = "coding";
   String hobby2 = "coding";
   String location = "Abuja, 4.5 km";
-
 
   int _currentIndex = 0;
 
@@ -51,7 +51,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
         PageView.builder(
           itemCount: images.length,
           controller: _pageController,
-         // physics: const NeverScrollableScrollPhysics(), // disables swipe
+          // physics: const NeverScrollableScrollPhysics(), // disables swipe
           itemBuilder: (context, index) {
             if (index == _currentIndex) {
               name = names[index];
@@ -76,8 +76,12 @@ class _ImageCarouselState extends State<ImageCarousel> {
                         ),
                       ),
                     ),
-                errorWidget: (context, url, error) =>
-                    Image.asset("assets/images/user1.png"),
+                errorWidget: (context, url, error) => Image.asset(
+                  "assets/images/user1.png",
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
@@ -107,9 +111,9 @@ class _ImageCarouselState extends State<ImageCarousel> {
                 SizedBox(width: 4),
                 Text(
                   location,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ],
             ),
