@@ -29,7 +29,7 @@ class _WhoAreYouLookingToMeetScreenState
   int lowerAgeRangeBound = 18;
   int upperAgeRangeBound = 100;
   int lowerHeightRangeBound = 100;
-  int upperHeightRangeBound = 200;
+  int upperHeightRangeBound = 250;
 
   @override
   void initState() {
