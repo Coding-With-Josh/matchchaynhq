@@ -208,7 +208,7 @@ class _PremiumScreenViewState extends State<PremiumScreenView> {
                       ),
                       SizedBox(height: 24),
                       Visibility(
-                        visible: !isWalletConnected,
+                        visible: !isWalletConnected && !isUserSubscribed,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
