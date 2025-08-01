@@ -77,7 +77,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
                       ),
                     ),
                 errorWidget: (context, url, error) => Image.asset(
-                  "assets/images/user1.png",
+                  defaultImage,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,

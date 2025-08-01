@@ -63,12 +63,6 @@ GoRouter createAppRouter({required bool isAuthenticated}) {
               GoRoute(
                 path: RouteDestinations.likes,
                 builder: (context, state) => const LikesScreen(),
-                routes: [
-                  GoRoute(
-                    path: RouteDestinations.premiumRelative,
-                    builder: (context, state) => const PremiumScreen(),
-                  ),
-                ],
               ),
             ],
           ),
@@ -120,6 +114,10 @@ GoRouter createAppRouter({required bool isAuthenticated}) {
           final bool? isCreateMoment = state.extra as bool?;
           return MomentsScreen(isCreateMoment: isCreateMoment ?? false);
         },
+      ),
+      GoRoute(
+        path: RouteDestinations.premium,
+        builder: (context, state) => const PremiumScreen(),
       ),
       GoRoute(
         path: RouteDestinations.notifications,

@@ -40,17 +40,36 @@ class HomeScreen extends StatelessWidget {
                 builder: (context) {
                   return AlertDialog(
                     title: Text('MatchChayn Tokens'),
-                    content: Text(
-                      'MatchChayn tokens is Coming very soon... stay Tuned',
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'MatchChayn tokens is Coming very soon... stay Tuned',
+                        ),
+                        SizedBox(height: 16),
+                        PrimaryButton(
+                          textStyle: Theme.of(context).textTheme.labelMedium,
+                          hugContents: true,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 4,
+                          ),
+                          text: "go to my wallet",
+                          onPressed: () {
+                            context.push(RouteDestinations.premium);
+                            context.pop();
+
+                          },
+                        ),
+                      ],
                     ),
                     actions: [
                       TextButton(
                         onPressed: () {
                           context.pop();
                         },
-                        child: Text(
-                          'OK',
-                        ),
+                        child: Text('OK'),
                       ),
                     ],
                   );
@@ -142,7 +161,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 
 class EventCarousel extends StatelessWidget {
   const EventCarousel({super.key});

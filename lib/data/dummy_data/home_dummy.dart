@@ -1,4 +1,4 @@
-
+final String defaultImage =  "assets/images/default_profile.jpg";
 final List<String> imagesMixed = [
   'https://github.com/bethel-m/matchayn_images/blob/main/profile1.jpg?raw=true',
   'https://github.com/bethel-m/matchayn_images/blob/main/profile2.jpg?raw=true',

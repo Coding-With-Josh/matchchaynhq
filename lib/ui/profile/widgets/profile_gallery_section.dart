@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:matchchayn/data/dummy_data/home_dummy.dart' show defaultImage;
 import 'package:matchchayn/ui/profile/widgets/section_header.dart';
 
 import '../../app_theme/app_theme.dart';
@@ -46,7 +47,7 @@ class ProfileGalleryImage extends StatelessWidget {
                   ),
                 ),
             errorWidget: (context, url, error) => Image.asset(
-              "assets/images/user1.png",
+              defaultImage,
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,
@@ -159,7 +160,7 @@ class FullScreenImageScreen extends StatelessWidget {
                             ),
                           ),
                       errorWidget: (context, url, error) => Image.asset(
-                        "assets/images/user1.png",
+                        defaultImage,
                         fit: BoxFit.cover,
                       ),
                       fit: BoxFit.cover,

@@ -44,6 +44,6 @@ abstract final class RouteDestinations {
   static const calls = "$messages/$callRelative";
 
   //premium
+  static const premium = "/premium";
   static const premiumRelative = "premium";
-  static const premium = "$likes/$premiumRelative";
 }

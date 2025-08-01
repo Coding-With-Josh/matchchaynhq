@@ -404,7 +404,7 @@ class ProfileListing extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
-                      "assets/images/user1.png",
+                      defaultImage,
                       fit: BoxFit.cover,
                     ),
                   ),
