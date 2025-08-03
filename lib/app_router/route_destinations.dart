@@ -13,6 +13,7 @@ abstract final class RouteDestinations {
 
   //onboarding
   static const userProfileOnboarding = "/user-profile-onboarding";
+  static const faceVerification = "/face-verification";
 
   //auth
   static const login = "/login";
@@ -46,4 +47,6 @@ abstract final class RouteDestinations {
   //premium
   static const premium = "/premium";
   static const premiumRelative = "premium";
+
+
 }

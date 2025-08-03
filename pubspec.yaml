@@ -50,6 +50,9 @@ dependencies:
   flutter_bloc: ^9.1.1
   url_launcher: ^6.3.2
   flutter_secure_storage: ^9.2.4
+  flutter_liveness_detection: ^0.0.3
+  face_collect_native: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:

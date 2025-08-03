@@ -241,6 +241,7 @@ class _PremiumScreenViewState extends State<PremiumScreenView> {
                         visible: !isUserSubscribed,
                         child: Column(
                           children: [
+
                             SvgPicture.asset(
                               "assets/icons/King.svg",
                               height: 100,

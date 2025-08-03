@@ -4,6 +4,7 @@ import 'package:matchchayn/app_router/route_destinations.dart';
 import 'package:matchchayn/ui/authentication/create_new_password.dart';
 import 'package:matchchayn/ui/authentication/forget_password_screen.dart';
 import 'package:matchchayn/ui/authentication/login_screen.dart';
+import 'package:matchchayn/ui/face_recognition/face_verification.dart';
 import 'package:matchchayn/ui/home/home_screen.dart';
 import 'package:matchchayn/ui/messages/call/call_screen.dart';
 import 'package:matchchayn/ui/messages/chat/chat_screen.dart';
@@ -30,10 +31,14 @@ final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
 
 GoRouter createAppRouter({required bool isAuthenticated}) {
   final appRouter = GoRouter(
-    initialLocation: RouteDestinations.splash,
+    initialLocation: RouteDestinations.faceVerification,
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
+      GoRoute(
+        path: RouteDestinations.faceVerification,
+        builder: (context, state) => FaceVerification(),
+      ),
       GoRoute(
         path: RouteDestinations.splash,
         builder: (context, state) =>
