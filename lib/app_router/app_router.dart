@@ -31,7 +31,7 @@ final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
 
 GoRouter createAppRouter({required bool isAuthenticated}) {
   final appRouter = GoRouter(
-    initialLocation: RouteDestinations.faceVerification,
+    initialLocation: RouteDestinations.splash,
     navigatorKey: _rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
